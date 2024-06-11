@@ -22,13 +22,17 @@ class Cake {
     string description;
     double price;
     vector<string> customizations;
+    string size; 
 
 public:
-    Cake(const string& n, const string& desc, double p, const vector<string>& customizations = {})
-        : name(n), description(desc), price(p), customizations(customizations) {}
+    Cake(const string& n, const string& desc, double p, const string& s, const vector<string>& customizations = {})
+        : name(n), description(desc), price(p), size(s), customizations(customizations) {}
 
     void display() const {
-        cout << "Nama       : " << name <<endl<< "   Keterangan : " << description << endl<<"   Harga      : Rp. " << price << endl;
+        cout << "Nama       : " << name << endl
+             << "   Keterangan : " << description << endl
+             << "   Harga      : Rp. " << price << endl
+             << "   Ukuran     : " << size << endl; 
         if (!customizations.empty()) {
             cout << "   Toping yang tersedia: ";
             for (const auto& custom : customizations) {
@@ -164,16 +168,18 @@ void displayUserMenu() {
 int main() {
     BakerySystem system;
    
-    system.addCake(Cake("Chocolate Cake ", "Delicious chocolate cake", 20000.0, {"Extra Chocolate", "Fruit Toppings \n"}));
-    system.addCake(Cake("Vanilla Cake", "Classic vanilla cake", 15000.0, {"Extra Cream", "Cherry Toppings \n"}));
-    system.addCake(Cake("Cheese Cake", "Soft cheese cake with cream cheese frosting", 150000, {"Extra Cream", "Cherry Toppings \n"}));
-    system.addCake(Cake("Chocolate Brownie", "Chocolate brownies with nuts", 100000,  {"Extra Cream", "Cherry Toppings \n"}));
-    system.addCake(Cake("Vanilla Cupcake", "Vanilla cupcake with buttercream topping", 25000 ,{"Extra Cream", "Cherry Toppings\n"} ));
-    system.addCake(Cake("Strawberry Chiffon Shortcake", "Strawberry Shortcake with whipped cream and fresh fruit slices", 100000,  {"Extra Cream", "Cherry Toppings \n"}));
-    system.addCake(Cake("Black Forest Cake", "Black Forest with sweet cream and chocolate", 120000,  {"Extra Cream", "Cherry Toppings \n"}));
-    system.addCake(Cake("Fruit Cake", "Fruit Cake with assorted fruit toppings", 250000,  {"Extra Cream", "Cherry Toppings \n"}));
-    system.addCake(Cake("Matcha Cake", "Matcha Cake with refreshing flavor", 70000,  {"Extra Cream", "Cherry Toppings \n"}));
+   
+    system.addCake(Cake("Chocolate Cake ", "Delicious chocolate cake", 20000.0, "large", {"Extra Chocolate &", "Fruit Toppings \n"}));
+    system.addCake(Cake("Vanilla Cake", "Classic vanilla cake", 15000.0, "medium", {"Extra Cream &", "Cherry Toppings \n"}));
+    system.addCake(Cake("Cheese Cake", "Soft cheese cake with cream cheese frosting", 150000, "large", {"Extra Cream &", "Cherry Toppings \n"}));
+    system.addCake(Cake("Chocolate Brownie", "Chocolate brownies with nuts", 100000, "medium", {"Extra Cream &", "Cherry Toppings \n"}));
+    system.addCake(Cake("Vanilla Cupcake", "Vanilla cupcake with buttercream topping", 25000 ,"small", {"Extra Cream &", "Cherry Toppings\n"} ));
+    system.addCake(Cake("Strawberry Chiffon Shortcake", "Strawberry Shortcake with whipped cream and fresh fruit slices &", 100000, "large", {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Black Forest Cake", "Black Forest with sweet cream and chocolate", 120000, "medium", {"Extra Cream &", "Cherry Toppings \n"}));
+    system.addCake(Cake("Fruit Cake", "Fruit Cake with assorted fruit toppings", 250000, "large", {"Extra Cream &", "Cherry Toppings \n"}));
+    system.addCake(Cake("Matcha Cake", "Matcha Cake with refreshing flavor", 70000, "small", {"Extra Cream &", "Cherry Toppings \n"}));
     
+
 
     bool running = true;
     while (running) {
