@@ -1,4 +1,4 @@
-using namespace std;
+#using namespace std;
 
 class User {
     string username;
@@ -66,3 +66,92 @@ class BakerySystem {
     map<string, User> users;
     vector<Cake> cakes;
     vector<Order> orders;
+
+public:
+    void registerUser(const string& uname, const string& pwd) {
+        if (uname.empty() || pwd.empty()) {
+            cout << "Nama pengguna dan kata sandi tidak boleh kosong." << endl;
+            return;
+        }
+        if (users.find(uname) == users.end()) {
+            users[uname] = User(uname, pwd);
+            cout <<"--Pendaftaran Anda Berhasil--" << endl;
+        } else {
+            cout << "Nama pengguna sudah ada." << endl;
+        }
+    }
+
+    User* loginUser(const string& uname, const string& pwd) {
+        auto it = users.find(uname);
+        if (it != users.end() && it->second.checkPassword(pwd)) {
+            cout << endl<<"--Login berhasil--"<<endl;
+            return &it->second;
+        } else {
+            cout << "Nama pengguna dan kata sandi salah." << endl;
+            return nullptr;
+        }
+    }
+
+    void addCake(const Cake& c) {
+        cakes.push_back(c);
+    }
+
+    void displayCakes() const {
+        if (cakes.empty()) {
+            cout << "Tidak ada kue yang tersedia." << endl;
+        } else {
+            for (size_t i = 0; i < cakes.size(); ++i) {
+                cout << i + 1 << ". ";
+                cakes[i].display();
+            }
+        }
+    }
+
+    void placeOrder(User* user, size_t cakeIndex, const vector<string>& customizations) {
+        if (user == nullptr) {
+            cout << "Pengguna tidak valid. Silahkan masuk terlebih dahulu" << endl;
+            return;
+        }
+        if (cakeIndex < 1 || cakeIndex > cakes.size()) {
+            cout << "Pemilik kue tidak valid." << endl;
+            return;
+        }
+        const Cake& cake = cakes[cakeIndex - 1];
+        double total = cake.getPrice();
+        orders.emplace_back(*user, cake, customizations, total);
+        cout << "Pesanan berhasil dilakukan." << endl;
+    }
+
+    void displayOrders() const {
+        if (orders.empty()) {
+            cout << "Belum ada pesanan ." << endl;
+        } else {
+            for (const auto& order : orders) {
+                order.displayReceipt();
+            }
+        }
+    }
+};
+
+void displayMainMenu() {
+	cout<< "============================"<<endl;
+    cout << "1. Register"<<endl;
+    cout << "2. Login"<<endl;
+    cout << "3. Keluar"<<endl;
+      cout<< "============================"<<endl;
+    cout << "Pilih Salah satu Opsi :";
+   
+  
+    	
+}
+
+void displayUserMenu() {
+	
+	cout<< "============================"<<endl;
+    cout << "1. Daftar Kue"<<endl;
+    cout << "2. Order"<<endl;
+    cout << "3. Melihat Pesanan"<<endl;
+    cout << "4. Keluar"<<endl;
+    cout<< "============================"<<endl;
+    cout << "Pilih salah satu opsi:"<<endl;
+}
