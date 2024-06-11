@@ -134,11 +134,11 @@ public:
 };
 
 void displayMainMenu() {
-	cout<< "============================"<<endl;
+    cout<< "============================"<<endl;
     cout << "1. Register"<<endl;
     cout << "2. Login"<<endl;
     cout << "3. Keluar"<<endl;
-      cout<< "============================"<<endl;
+    cout<< "============================"<<endl;
     cout << "Pilih Salah satu Opsi :";
    
   
@@ -147,7 +147,7 @@ void displayMainMenu() {
 
 void displayUserMenu() {
 	
-	cout<< "============================"<<endl;
+    cout<< "============================"<<endl;
     cout << "1. Daftar Kue"<<endl;
     cout << "2. Order"<<endl;
     cout << "3. Melihat Pesanan"<<endl;
