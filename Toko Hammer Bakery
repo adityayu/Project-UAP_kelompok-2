@@ -159,3 +159,101 @@ void displayUserMenu() {
     cout<< "============================"<<endl;
     cout << "Pilih salah satu opsi:"<<endl;
 }
+
+int main() {
+    BakerySystem system;
+   
+    system.addCake(Cake("Chocolate Cake ", "Delicious chocolate cake", 20000.0, {"Extra Chocolate", "Fruit Toppings \n"}));
+    system.addCake(Cake("Vanilla Cake", "Classic vanilla cake", 15000.0, {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Cheese Cake", "Soft cheese cake with cream cheese frosting", 150000, {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Chocolate Brownie", "Chocolate brownies with nuts", 100000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Vanilla Cupcake", "Vanilla cupcake with buttercream topping", 25000 ,{"Extra Cream", "Cherry Toppings\n"} ));
+    system.addCake(Cake("Strawberry Chiffon Shortcake", "Strawberry Shortcake with whipped cream and fresh fruit slices", 100000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Black Forest Cake", "Black Forest with sweet cream and chocolate", 120000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Fruit Cake", "Fruit Cake with assorted fruit toppings", 250000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Matcha Cake", "Matcha Cake with refreshing flavor", 70000,  {"Extra Cream", "Cherry Toppings \n"}));
+    
+
+    bool running = true;
+    while (running) {
+        displayMainMenu();
+        int choice;
+        cin >> choice;
+        cin.ignore();  
+
+        switch (choice) {
+            case 1: {
+                string username, password;
+                cout << "Masukkan Username: ";
+                getline(cin, username);
+                cout << "Masukkan Password: ";
+                getline(cin, password);
+                system.registerUser(username, password);
+                break;
+            }
+            case 2: {
+                string username, password;
+                cout << "Username : ";
+                getline(cin, username);
+                cout << "Password : ";
+                getline(cin, password);
+                User* loggedInUser = system.loginUser(username, password);
+                if (loggedInUser) {
+                    bool loggedIn = true;
+                    while (loggedIn) {
+                        displayUserMenu();
+                        int userChoice;
+                        cin >> userChoice;
+                        cin.ignore();  
+
+                        switch (userChoice) {
+                            case 1:
+                                system.displayCakes();
+                                break;
+                            case 2: {
+                                system.displayCakes();
+                                size_t cakeIndex;
+                                cout << "Pilih nomor kue: ";
+                                cin >> cakeIndex;
+                                cin.ignore(); 
+
+                                vector<string> customizations;
+                                string customization;
+                                char addMore;
+                                do {
+                                    cout << "Masukkan detail toping: ";
+                                    getline(cin, customization);
+                                    customizations.push_back(customization);
+                                    cout << "Tambahkan toping ? (y/n): ";
+                                    cin >> addMore;
+                                    cin.ignore();  
+                                } while (addMore == 'y' || addMore == 'Y');
+                                
+                                system.placeOrder(loggedInUser, cakeIndex, customizations);
+                                break;
+                            }
+                            case 3:
+                                system.displayOrders();
+                                break;
+                            case 4:
+                                loggedIn = false;
+                                cout << "Berhasil keluar." << endl;
+                                break;
+                            default:
+                                cout << "Opsi tidak valid. Silahkan coba lagi." << endl;
+                        }
+                    }
+                }
+                break;
+            }
+            case 3:
+                running = false;
+                cout << "Keluar dari program." << endl;
+                break;
+            default:
+                cout << "Pilihan tidak valid. Silahkan coba lagi." << endl;
+        }
+    }
+
+    return 0;
+}
