@@ -1,6 +1,68 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
-
 using namespace std;
+
+class User {
+    string username;
+    string password;
+
+public:
+    User() = default;
+    User(const string& uname, const string& pwd) : username(uname), password(pwd) {}
+
+    string getUsername() const { return username; }
+    bool checkPassword(const string& pwd) const { return password == pwd; }
+};
+
+class Cake {
+    string name;
+    string description;
+    double price;
+    vector<string> customizations;
+
+public:
+    Cake(const string& n, const string& desc, double p, const vector<string>& customizations = {})
+        : name(n), description(desc), price(p), customizations(customizations) {}
+
+    void display() const {
+        cout << "Nama       : " << name <<endl<< "   Keterangan : " << description << endl<<"   Harga      : Rp. " << price << endl;
+        if (!customizations.empty()) {
+            cout << "   Toping yang tersedia: ";
+            for (const auto& custom : customizations) {
+                cout << custom << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    string getName() const { return name; }
+    double getPrice() const { return price; }
+    vector<string> getCustomizations() const { return customizations; }
+};
+
+class Order {
+    User customer;
+    Cake cake;
+    vector<string> customizations;
+    double totalPrice;
+
+public:
+    Order(const User& u, const Cake& c, const vector<string>& customs, double total)
+        : customer(u), cake(c), customizations(customs), totalPrice(total) {}
+
+    void displayReceipt() const {
+        cout << "Nama Pemesan : " << customer.getUsername() << endl;
+        cout << "Kue          : " << cake.getName() << endl;
+        if (!customizations.empty()) {
+        cout << "Toping       : ";
+            for (const auto& custom : customizations) {
+                cout << custom << " ";
+            }
+            cout << endl;
+        }
+        cout << "Total Harga  :Rp" << totalPrice << endl;
+    }
+};
+
+class BakerySystem {
+    map<string, User> users;
+    vector<Cake> cakes;
+    vector<Order> orders;
