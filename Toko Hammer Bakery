@@ -144,7 +144,7 @@ void displayMainMenu() {
     cout << "1. Register"<<endl;
     cout << "2. Login"<<endl;
     cout << "3. Keluar"<<endl;
-      cout<< "============================"<<endl;
+        cout<< "============================"<<endl;
     cout << "Pilih Salah satu Opsi :";
    
   
@@ -153,7 +153,7 @@ void displayMainMenu() {
 
 void displayUserMenu() {
 	
-	cout<< "============================"<<endl;
+    cout<< "============================"<<endl;
     cout << "1. Daftar Kue"<<endl;
     cout << "2. Order"<<endl;
     cout << "3. Melihat Pesanan"<<endl;
@@ -213,31 +213,31 @@ int main() {
                                 system.displayCakes();
                                 break;
                            case 2: {
-    system.displayCakes();
-    size_t cakeIndex;
-    cout << "Pilih nomor kue: ";
-    cin >> cakeIndex;
-    cin.ignore(); 
+                                system.displayCakes();
+                               	 size_t cakeIndex;
+   				 cout << "Pilih nomor kue: ";
+   				 cin >> cakeIndex;
+   				 cin.ignore(); 
 
-    string size;
-    cout << "Pilih ukuran kue (small/medium/large): ";
-    getline(cin, size);
+  				  string size;
+   				 cout << "Pilih ukuran kue (small/medium/large): ";
+    				 getline(cin, size);
 
-    vector<string> customizations;
-    string customization;
-    char addMore;
-    do {
-        cout << "Masukkan detail toping: ";
-        getline(cin, customization);
-        customizations.push_back(customization);
-        cout << "Tambahkan toping ? (y/n): ";
-        cin >> addMore;
-        cin.ignore();  
-    } while (addMore == 'y' || addMore == 'Y');
+    				vector<string> customizations;
+   				 string customization;
+   				 char addMore;
+  			  do {
+        		cout << "Masukkan detail toping: ";
+       		        getline(cin, customization);
+       			customizations.push_back(customization);
+      			cout << "Tambahkan toping ? (y/n): ";
+        		cin >> addMore;
+        		cin.ignore();  
+   			} while (addMore == 'y' || addMore == 'Y');
 
-    system.placeOrder(loggedInUser, cakeIndex, size, customizations);
-    break;
-}
+    			system.placeOrder(loggedInUser, cakeIndex, size, customizations);
+   			 break;
+				}
 
                             
                             case 3:
