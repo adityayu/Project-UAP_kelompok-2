@@ -209,35 +209,37 @@ int main() {
                         cin.ignore();  
 
                         switch (userChoice) {
+                        	
                             case 1:
                                 system.displayCakes();
                                 break;
+                                
                            case 2: {
                                 system.displayCakes();
                                	 size_t cakeIndex;
-   				 cout << "Pilih nomor kue: ";
-   				 cin >> cakeIndex;
-   				 cin.ignore(); 
+   				                cout << "Pilih nomor kue: ";
+   				                cin >> cakeIndex;
+   				                cin.ignore(); 
 
-  				  string size;
-   				 cout << "Pilih ukuran kue (small/medium/large): ";
-    				 getline(cin, size);
+  				                string size;
+   				                cout << "Pilih ukuran kue (small/medium/large): ";
+    				            getline(cin, size);
 
-    				vector<string> customizations;
-   				 string customization;
-   				 char addMore;
-  			  do {
-        		cout << "Masukkan detail toping: ";
-       		        getline(cin, customization);
-       			customizations.push_back(customization);
-      			cout << "Tambahkan toping ? (y/n): ";
-        		cin >> addMore;
-        		cin.ignore();  
-   			} while (addMore == 'y' || addMore == 'Y');
+    				            vector<string> customizations;
+   				                string customization;
+   				                char addMore;
+  			                     do {
+        		                cout << "Masukkan detail toping: ";
+       		                    getline(cin, customization);
+       		                 	customizations.push_back(customization);
+      			                cout << "Tambahkan toping ? (y/n): ";
+        		                cin >> addMore;
+        	                 	cin.ignore();  
+   		                        	} while (addMore == 'y' || addMore == 'Y');
 
-    			system.placeOrder(loggedInUser, cakeIndex, size, customizations);
-   			 break;
-				}
+    			                system.placeOrder(loggedInUser, cakeIndex, size, customizations);
+   			                    break;
+			                     	}
 
                             
                             case 3:
