@@ -22,17 +22,13 @@ class Cake {
     string description;
     double price;
     vector<string> customizations;
-    string size; 
 
 public:
-    Cake(const string& n, const string& desc, double p, const string& s, const vector<string>& customizations = {})
-        : name(n), description(desc), price(p), size(s), customizations(customizations) {}
+    Cake(const string& n, const string& desc, double p, const vector<string>& customizations = {})
+        : name(n), description(desc), price(p), customizations(customizations) {}
 
     void display() const {
-        cout << "Nama       : " << name << endl
-             << "   Keterangan : " << description << endl
-             << "   Harga      : Rp. " << price << endl
-             << "   Ukuran     : " << size << endl; 
+        cout << "Nama       : " << name <<endl<< "   Keterangan : " << description << endl<<"   Harga      : Rp. " << price << endl;
         if (!customizations.empty()) {
             cout << "   Toping yang tersedia: ";
             for (const auto& custom : customizations) {
@@ -116,20 +112,21 @@ public:
         }
     }
 
-    void placeOrder(User* user, size_t cakeIndex, const vector<string>& customizations) {
-        if (user == nullptr) {
-            cout << "Pengguna tidak valid. Silahkan masuk terlebih dahulu" << endl;
-            return;
-        }
-        if (cakeIndex < 1 || cakeIndex > cakes.size()) {
-            cout << "Pemilik kue tidak valid." << endl;
-            return;
-        }
-        const Cake& cake = cakes[cakeIndex - 1];
-        double total = cake.getPrice();
-        orders.emplace_back(*user, cake, customizations, total);
-        cout << "Pesanan berhasil dilakukan." << endl;
+   void placeOrder(User* user, size_t cakeIndex, const string& size, const vector<string>& customizations) {
+    if (user == nullptr) {
+        cout << "Pengguna tidak valid. Silahkan masuk terlebih dahulu" << endl;
+        return;
     }
+    if (cakeIndex < 1 || cakeIndex > cakes.size()) {
+        cout << "Pemilik kue tidak valid." << endl;
+        return;
+    }
+    const Cake& cake = cakes[cakeIndex - 1];
+    double total = cake.getPrice();
+   
+    orders.emplace_back(*user, cake, customizations, total);
+    cout << "Pesanan berhasil dilakukan." << endl;
+}
 
     void displayOrders() const {
         if (orders.empty()) {
@@ -143,11 +140,11 @@ public:
 };
 
 void displayMainMenu() {
-    cout<< "============================"<<endl;
+	cout<< "============================"<<endl;
     cout << "1. Register"<<endl;
     cout << "2. Login"<<endl;
     cout << "3. Keluar"<<endl;
-    cout<< "============================"<<endl;
+      cout<< "============================"<<endl;
     cout << "Pilih Salah satu Opsi :";
    
   
@@ -156,7 +153,7 @@ void displayMainMenu() {
 
 void displayUserMenu() {
 	
-    cout<< "============================"<<endl;
+	cout<< "============================"<<endl;
     cout << "1. Daftar Kue"<<endl;
     cout << "2. Order"<<endl;
     cout << "3. Melihat Pesanan"<<endl;
@@ -168,18 +165,16 @@ void displayUserMenu() {
 int main() {
     BakerySystem system;
    
-   
-    system.addCake(Cake("Chocolate Cake ", "Delicious chocolate cake", 20000.0, "large", {"Extra Chocolate &", "Fruit Toppings \n"}));
-    system.addCake(Cake("Vanilla Cake", "Classic vanilla cake", 15000.0, "medium", {"Extra Cream &", "Cherry Toppings \n"}));
-    system.addCake(Cake("Cheese Cake", "Soft cheese cake with cream cheese frosting", 150000, "large", {"Extra Cream &", "Cherry Toppings \n"}));
-    system.addCake(Cake("Chocolate Brownie", "Chocolate brownies with nuts", 100000, "medium", {"Extra Cream &", "Cherry Toppings \n"}));
-    system.addCake(Cake("Vanilla Cupcake", "Vanilla cupcake with buttercream topping", 25000 ,"small", {"Extra Cream &", "Cherry Toppings\n"} ));
-    system.addCake(Cake("Strawberry Chiffon Shortcake", "Strawberry Shortcake with whipped cream and fresh fruit slices &", 100000, "large", {"Extra Cream", "Cherry Toppings \n"}));
-    system.addCake(Cake("Black Forest Cake", "Black Forest with sweet cream and chocolate", 120000, "medium", {"Extra Cream &", "Cherry Toppings \n"}));
-    system.addCake(Cake("Fruit Cake", "Fruit Cake with assorted fruit toppings", 250000, "large", {"Extra Cream &", "Cherry Toppings \n"}));
-    system.addCake(Cake("Matcha Cake", "Matcha Cake with refreshing flavor", 70000, "small", {"Extra Cream &", "Cherry Toppings \n"}));
+    system.addCake(Cake("Chocolate Cake ", "Delicious chocolate cake", 20000.0, {"Extra Chocolate", "Fruit Toppings \n"}));
+    system.addCake(Cake("Vanilla Cake", "Classic vanilla cake", 15000.0, {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Cheese Cake", "Soft cheese cake with cream cheese frosting", 150000, {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Chocolate Brownie", "Chocolate brownies with nuts", 100000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Vanilla Cupcake", "Vanilla cupcake with buttercream topping", 25000 ,{"Extra Cream", "Cherry Toppings\n"} ));
+    system.addCake(Cake("Strawberry Chiffon Shortcake", "Strawberry Shortcake with whipped cream and fresh fruit slices", 100000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Black Forest Cake", "Black Forest with sweet cream and chocolate", 120000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Fruit Cake", "Fruit Cake with assorted fruit toppings", 250000,  {"Extra Cream", "Cherry Toppings \n"}));
+    system.addCake(Cake("Matcha Cake", "Matcha Cake with refreshing flavor", 70000,  {"Extra Cream", "Cherry Toppings \n"}));
     
-
 
     bool running = true;
     while (running) {
@@ -217,28 +212,34 @@ int main() {
                             case 1:
                                 system.displayCakes();
                                 break;
-                            case 2: {
-                                system.displayCakes();
-                                size_t cakeIndex;
-                                cout << "Pilih nomor kue: ";
-                                cin >> cakeIndex;
-                                cin.ignore(); 
+                           case 2: {
+    system.displayCakes();
+    size_t cakeIndex;
+    cout << "Pilih nomor kue: ";
+    cin >> cakeIndex;
+    cin.ignore(); 
 
-                                vector<string> customizations;
-                                string customization;
-                                char addMore;
-                                do {
-                                    cout << "Masukkan detail toping: ";
-                                    getline(cin, customization);
-                                    customizations.push_back(customization);
-                                    cout << "Tambahkan toping ? (y/n): ";
-                                    cin >> addMore;
-                                    cin.ignore();  
-                                } while (addMore == 'y' || addMore == 'Y');
-                                
-                                system.placeOrder(loggedInUser, cakeIndex, customizations);
-                                break;
-                            }
+    string size;
+    cout << "Pilih ukuran kue (small/medium/large): ";
+    getline(cin, size);
+
+    vector<string> customizations;
+    string customization;
+    char addMore;
+    do {
+        cout << "Masukkan detail toping: ";
+        getline(cin, customization);
+        customizations.push_back(customization);
+        cout << "Tambahkan toping ? (y/n): ";
+        cin >> addMore;
+        cin.ignore();  
+    } while (addMore == 'y' || addMore == 'Y');
+
+    system.placeOrder(loggedInUser, cakeIndex, size, customizations);
+    break;
+}
+
+                            
                             case 3:
                                 system.displayOrders();
                                 break;
